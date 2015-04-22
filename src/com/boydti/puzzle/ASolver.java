@@ -5,29 +5,47 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public abstract class ASolver {
-	
-	// The 
+
+    /**
+     * The history map for the nodes
+     */
 	public HashMap<Node, Node> all_history = new HashMap<>();
-	public HashMap<Node, Node> local_history = new HashMap<>();
 	
-	public ArrayDeque<Node> queue = new ArrayDeque<Node>();
+	/**
+	 * hash structure representing the queue
+	 */
+	public HashMap<Node, Node> local_history = new HashMap<>();
 	
 	public final int WIDTH;
 	public final int HEIGHT;
 	public final int LENGTH;
 	
+	/**
+	 * Initial byte array
+	 */
 	public final byte[] INITIAL;
+	
+	/**
+	 * The end goal
+	 */
 	public final byte[] GOAL;
 	
+	/**
+	 * 
+	 * @param width
+	 * @param height
+	 * @param initial
+	 * @param goal
+	 */
 	public ASolver(int width, int height, byte[] initial, byte[] goal) {
 		this.WIDTH = width;
 		this.HEIGHT = height;
 		this.LENGTH = this.WIDTH * this.HEIGHT;
-		
 		this.INITIAL = initial;
 		this.GOAL = goal;
 	}
 	
+	// Unused hash function as it didn't work well
 	@Deprecated
 	public long getHash(Node state) {
 		int length = state.data.length;
@@ -38,12 +56,7 @@ public abstract class ASolver {
 		return val;
 	}
 
-	/**
-	 * Only works on small arrays
-	 * @param value
-	 * @param length
-	 * @return
-	 */
+	// Unused getState (for my unused hash function above)
 	@Deprecated
 	public Node getState(long value, int length) {
 		Node state = new Node(new byte[length]);
@@ -57,10 +70,17 @@ public abstract class ASolver {
 		return state;
 	}
 	
+	/**
+	 * Print the byte array representing the node
+	 * @param state
+	 */
 	public void printState(Node state) {
 		System.out.println(Arrays.toString(state.data));
 	}
 	
+	/**
+	 * Get a Node from a byte array
+	 */
 	public Node getState(byte[] simpleGrid) {
 		Node state = new Node(new byte[simpleGrid.length + 1]);
 		for (int i = 0; i < simpleGrid.length; i++) {
@@ -88,6 +108,30 @@ public abstract class ASolver {
 		return getSwap(state, val);
 	}
 	
+	
+	public byte[] positions;
+
+	public int abs(int a) {
+	    return a < 0 ? 0 - a : a;
+	}
+	
+    public int manhattanDistance(Node node) {
+        if (positions == null) {
+            positions = new byte[GOAL.length];
+            for (byte i = 0; i < GOAL.length; i++) {
+                positions[GOAL[i]] = i;
+            }
+        }
+        if (node.distance == 0) {
+            for (int i = 1, j = 0; i < node.data.length; i++, j++) {
+                byte ideal = positions[j];
+                node.distance += abs((ideal % WIDTH) - (j % WIDTH));
+                node.distance += abs((ideal / WIDTH) - (j / WIDTH));
+            }
+        }
+        return node.distance;
+    }
+	
 	public Node getLeft(Node state) {
 		byte val = (byte) (state.data[0] - 1);
 		if ((val) % WIDTH == 0) {
@@ -113,14 +157,23 @@ public abstract class ASolver {
 		return state;
 	}
 	
-	public void removeHistory(Node state) {
-		Node previous = all_history.get(state);
-		while(local_history.containsKey(previous)) {
-			state = previous;
-			previous = all_history.get(state);
-			all_history.remove(state);
-			
-		}
+	public ArrayDeque<Node> toRemove = new ArrayDeque<Node>();
+	
+	int prunes = 0;
+	
+	public void removeHistory(Node previous) {
+	    int size = all_history.size();
+	    all_history.remove(previous);
+	    Node state;
+	    while(previous != null) {
+            state = previous;
+            previous = all_history.get(state);
+            if (local_history.containsKey(previous)) {
+                break;
+            }
+            all_history.remove(state);
+        }
+	    prunes += size - all_history.size();
 	}
 	
 	public String getMove(Node first, Node second) {
@@ -145,12 +198,18 @@ public abstract class ASolver {
 		Node init = getState(INITIAL);
 		StringBuffer history = new StringBuffer();
 		String prefix = "";
+		int moves = 0;
 		while (!state.equals(init)) {
+		    moves++;
 			Node previous = all_history.get(state);
 			history.append(prefix + getMove(previous, state));
-			prefix = ",";
+			prefix = ";";
 			state = previous;
 		}
-		System.out.print(history.reverse());
+//		System.out.println("[" + history.reverse() +"]");
+		System.out.println("TOTOAL MOVES: " + moves);
+		System.out.println("NODES EXPLORED: " + (all_history.size() + prunes));
+		System.out.println("CACHE SIZE: " + all_history.size());
+		System.out.println("PRUNES PERFORMED: " + prunes);
 	}
 }

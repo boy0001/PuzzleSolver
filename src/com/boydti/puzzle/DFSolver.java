@@ -1,18 +1,21 @@
 package com.boydti.puzzle;
 
+import java.util.ArrayDeque;
+
 public class DFSolver extends ASolver {
 
 	public DFSolver(int width, int height, byte[] initial, byte[] goal) {
 		super(width, height, initial, goal);
 	}
 
+	public ArrayDeque<Node> queue = new ArrayDeque<Node>();
+	
 	@Override
 	public void solve() {
 		Node goal = getState(GOAL);
 		Node state = getState(INITIAL);
 		queue.push(state);
-		boolean notfound = true; 
-		while (notfound) {
+		while (true) {
 			state = queue.remove();
 			local_history.remove(state);
 			Node up = getUp(state);
@@ -28,7 +31,6 @@ public class DFSolver extends ASolver {
 					all_history.put(up, state);
 					if (up.equals(goal)) {
 						state = up;
-						notfound = false;
 						return;
 					}
 				}
@@ -41,7 +43,6 @@ public class DFSolver extends ASolver {
 					all_history.put(left, state);
 					if (left.equals(goal)) {
 						state = left;
-						notfound = false;
 						return;
 					}
 				}
@@ -54,7 +55,6 @@ public class DFSolver extends ASolver {
 					all_history.put(down, state);
 					if (down.equals(goal)) {
 						state = down;
-						notfound = false;
 						return;
 					}
 				}
@@ -67,7 +67,6 @@ public class DFSolver extends ASolver {
 					all_history.put(right, state);
 					if (right.equals(goal)) {
 						state = right;
-						notfound = false;
 						return;
 					}
 				}

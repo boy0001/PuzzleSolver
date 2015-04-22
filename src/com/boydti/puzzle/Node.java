@@ -2,31 +2,39 @@ package com.boydti.puzzle;
 
 import java.util.Arrays;
 
-public final class Node
+public class Node
 {
+    /**
+     * The first element is the index of the '0'
+     * after that is the usual byte array
+     */
     public byte[] data;
-
-    public Node(byte[] data)
-    {
+    
+    public Node(byte[] data) {
         this.data = data;
     }
+
+//    public static int[][] v;
+    
+    int code;
+    
+    int distance;
 
     @Override
     public boolean equals(Object other)
     {
-    	if (other == null) {
-    		return false;
-    	}
+        if (other == null) { 
+            return false;
+        }
         return Arrays.equals(data, ((Node)other).data);
     }
 
     @Override
     public int hashCode()
     {
-        int value = 0;
-        for (int i = 1; i < data.length; i++) {
-        	value += data[i] * (i - 1) * 64;
+        if (code == 0) {
+            code = Arrays.hashCode(data);
         }
-        return value;
+        return code;
     }
 }

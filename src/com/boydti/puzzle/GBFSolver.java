@@ -1,71 +1,41 @@
 package com.boydti.puzzle;
 
 import java.util.ArrayDeque;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
-public class BFSolver extends ASolver {
+public class GBFSolver extends ASolver {
 
-	public BFSolver(int width, int height, byte[] initial, byte[] goal) {
+	public GBFSolver(int width, int height, byte[] initial, byte[] goal) {
 		super(width, height, initial, goal);
 	}
 	
-	/**
-	 * The queue object
-	 */
-	public ArrayDeque<Node> queue = new ArrayDeque<Node>();
-
-	/**
-	 * Things to note:
-	 * 
-	 *  local cache (local_history): Is a hash representation of the current queue
-	 *  
-	 *  global cache (all_history): Is a hash containing the complete history of anything in the local cache
-	 *  
-	 */
+	public PriorityQueue<Node> queue = new PriorityQueue<Node>(0, new Comparator<Node>() {
+        @Override
+        public int compare(Node o1, Node o2) {
+            return 0;
+        }
+    });
+	
 	@Override
 	public void solve() {
-	    
-	    // Set the goal and initial vars
 		Node goal = getState(GOAL);
 		Node state = getState(INITIAL);
-		
-		// Initialize the queue with the starting state
 		queue.add(state);
-		
-		// Main loop
 		while (true) {
-		    
-		    // Set the state to the first in the queue
-		    // Remove it from local history (as it no longer needs to be cached)
 			state = queue.remove();
 			local_history.remove(state);
-			
-			// Calculate the up, left, down and right options
 			Node up = getUp(state);
 			Node left = getLeft(state);
 			Node down = getDown(state);
 			Node right = getRight(state);
-			
-			// If there are no unexplored connected nodes (see logic below)
 			boolean empty = true;
-			
 			if (up != null) {
-			    
-			    // Check if the node is explored already
 				if (!all_history.containsKey(up)) {
-				    
-				    // Set emtpy to false as an unexplored node was found
 					empty = false;
-					
-					// Add this node to the queue
 					queue.add(up);
-					
-					// Add this node to the local cache
 					local_history.put(up, state);
-					
-					// Add this node to the global cache
 					all_history.put(up, state);
-					
-					// Check if up is a solution
 					if (up.equals(goal)) {
 						state = up;
 						return;
@@ -108,8 +78,6 @@ public class BFSolver extends ASolver {
 					}
 				}
 			}
-			
-			// Prune the history hashmap of useless nodes
 			if (empty) {
 				removeHistory(state);
 			}
