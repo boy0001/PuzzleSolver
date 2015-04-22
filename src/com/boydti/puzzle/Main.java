@@ -21,8 +21,8 @@ public class Main {
 	
 	public static void main(String[] args) {
 	    // The initial and goal states
-	    byte[] initial;
-	    byte[] goal;
+	    byte[] initial = null;
+	    byte[] goal = null;
 	    int width;
 	    int height;
 	    String solver;
@@ -40,8 +40,8 @@ public class Main {
                 return;
             }
 		    String[] sizeSplit = lines.get(0).split("x");
-		    width = Integer.parseInt(sizeSplit[0]);
-		    height = Integer.parseInt(sizeSplit[1]);
+		    height = Integer.parseInt(sizeSplit[0]);
+		    width = Integer.parseInt(sizeSplit[1]);
 		    
 		    String[] startStr = lines.get(2).split(" ");
             initial = new byte[startStr.length];
@@ -68,13 +68,13 @@ public class Main {
 	        
 //	      initial = new byte[] {0,9,3,7,1,5,4,8,2,6}; // 5x2 -> 55 moves
 	        
-	        solver = "BFS";
+	        solver = "DFS";
 	        width = 3;
 	        height = 3;
 	        
-//	        if (goal == null) {
-//	            goal = getGoal(initial);
-//	        }
+	        if (goal == null) {
+	            goal = getGoal(initial);
+	        }
 		}
 		
 		// Creating a new instance of the specified AbstractSolver class
@@ -94,7 +94,7 @@ public class Main {
 		System.out.println("Solving with " + solver);
 		long start = System.currentTimeMillis();
 
-		// Solving the puzzle
+		// Solving the puzzle 
 		try {
 		    imp.solve();
 		}

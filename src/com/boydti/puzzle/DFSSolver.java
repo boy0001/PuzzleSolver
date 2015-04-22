@@ -23,6 +23,7 @@ public class DFSSolver extends AbstractSolver {
 		Node goal = getState(GOAL);
 		Node state = getState(INITIAL);
 		queue.push(state);
+		all_history.put(state, state);
 		while (true) {
 			state = queue.remove();
 			Node up = getUp(state);
@@ -30,28 +31,18 @@ public class DFSSolver extends AbstractSolver {
 			Node down = getDown(state);
 			Node right = getRight(state);
 			boolean empty = true;
-            if (up != null) {
-				if (!all_history.containsKey(up)) {
-					empty = false;
-					queue.push(up);
-					all_history.put(up, state);
-					if (up.equals(goal)) {
-						state = up;
-						return;
-					}
-				}
-			}
-			if (left != null) {
-				if (!all_history.containsKey(left)) {
-					empty = false;
-					queue.push(left);
-					all_history.put(left, state);
-					if (left.equals(goal)) {
-						state = left;
-						return;
-					}
-				}
-			}
+            
+			if (right != null) {
+                if (!all_history.containsKey(right)) {
+                    empty = false;
+                    queue.push(right);
+                    all_history.put(right, state);
+                    if (right.equals(goal)) {
+                        state = right;
+                        return;
+                    }
+                }
+            }
 			if (down != null) {
 				if (!all_history.containsKey(down)) {
 					empty = false;
@@ -63,17 +54,28 @@ public class DFSSolver extends AbstractSolver {
 					}
 				}
 			}
-			if (right != null) {
-				if (!all_history.containsKey(right)) {
-					empty = false;
-					queue.push(right);
-					all_history.put(right, state);
-					if (right.equals(goal)) {
-						state = right;
-						return;
-					}
-				}
-			}
+			if (left != null) {
+                if (!all_history.containsKey(left)) {
+                    empty = false;
+                    queue.push(left);
+                    all_history.put(left, state);
+                    if (left.equals(goal)) {
+                        state = left;
+                        return;
+                    }
+                }
+            }
+			if (up != null) {
+                if (!all_history.containsKey(up)) {
+                    empty = false;
+                    queue.push(up);
+                    all_history.put(up, state);
+                    if (up.equals(goal)) {
+                        state = up;
+                        return;
+                    }
+                }
+            }
 			if (empty) {
 				removeHistory(state);
 			}
