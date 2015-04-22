@@ -2,9 +2,9 @@ package com.boydti.puzzle;
 
 import java.util.ArrayDeque;
 
-public class BFSolver extends ASolver {
+public class BFSSolver extends AbstractSolver {
 
-	public BFSolver(int width, int height, byte[] initial, byte[] goal) {
+	public BFSSolver(int width, int height, byte[] initial, byte[] goal) {
 		super(width, height, initial, goal);
 	}
 	
@@ -60,7 +60,7 @@ public class BFSolver extends ASolver {
 					queue.add(up);
 					
 					// Add this node to the local cache
-					local_history.put(up, state);
+					local_history.put(up, null);
 					
 					// Add this node to the global cache
 					all_history.put(up, state);
@@ -76,7 +76,7 @@ public class BFSolver extends ASolver {
 				if (!all_history.containsKey(left)) {
 					empty = false;
 					queue.add(left);
-					local_history.put(left, state);
+					local_history.put(left, null);
 					all_history.put(left, state);
 					if (left.equals(goal)) {
 						state = left;
@@ -88,7 +88,7 @@ public class BFSolver extends ASolver {
 				if (!all_history.containsKey(down)) {
 					empty = false;
 					queue.add(down);
-					local_history.put(down, state);
+					local_history.put(down, null);
 					all_history.put(down, state);
 					if (down.equals(goal)) {
 						state = down;
@@ -100,7 +100,7 @@ public class BFSolver extends ASolver {
 				if (!all_history.containsKey(right)) {
 					empty = false;
 					queue.add(right);
-					local_history.put(right, state);
+					local_history.put(right, null);
 					all_history.put(right, state);
 					if (right.equals(goal)) {
 						state = right;

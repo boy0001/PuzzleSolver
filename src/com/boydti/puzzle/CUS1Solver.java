@@ -1,19 +1,19 @@
 package com.boydti.puzzle;
 
-import java.util.ArrayDeque;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-public class GBFSolver extends ASolver {
+public class CUS1Solver extends AbstractSolver {
 
-	public GBFSolver(int width, int height, byte[] initial, byte[] goal) {
+	public CUS1Solver(int width, int height, byte[] initial, byte[] goal) {
 		super(width, height, initial, goal);
 	}
 	
-	public PriorityQueue<Node> queue = new PriorityQueue<Node>(0, new Comparator<Node>() {
+	// Totally random based sorting (based on hashcode)
+	public PriorityQueue<Node> queue = new PriorityQueue<Node>(1, new Comparator<Node>() {
         @Override
-        public int compare(Node o1, Node o2) {
-            return 0;
+        public int compare(Node a, Node b) {
+            return a.hashCode() - b.hashCode();
         }
     });
 	
@@ -34,7 +34,7 @@ public class GBFSolver extends ASolver {
 				if (!all_history.containsKey(up)) {
 					empty = false;
 					queue.add(up);
-					local_history.put(up, state);
+					local_history.put(up, null);
 					all_history.put(up, state);
 					if (up.equals(goal)) {
 						state = up;
@@ -46,7 +46,7 @@ public class GBFSolver extends ASolver {
 				if (!all_history.containsKey(left)) {
 					empty = false;
 					queue.add(left);
-					local_history.put(left, state);
+					local_history.put(left, null);
 					all_history.put(left, state);
 					if (left.equals(goal)) {
 						state = left;
@@ -58,7 +58,7 @@ public class GBFSolver extends ASolver {
 				if (!all_history.containsKey(down)) {
 					empty = false;
 					queue.add(down);
-					local_history.put(down, state);
+					local_history.put(down, null);
 					all_history.put(down, state);
 					if (down.equals(goal)) {
 						state = down;
@@ -70,7 +70,7 @@ public class GBFSolver extends ASolver {
 				if (!all_history.containsKey(right)) {
 					empty = false;
 					queue.add(right);
-					local_history.put(right, state);
+					local_history.put(right, null);
 					all_history.put(right, state);
 					if (right.equals(goal)) {
 						state = right;

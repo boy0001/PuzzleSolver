@@ -4,7 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public abstract class ASolver {
+public abstract class AbstractSolver {
 
     /**
      * The history map for the nodes
@@ -14,7 +14,7 @@ public abstract class ASolver {
 	/**
 	 * hash structure representing the queue
 	 */
-	public HashMap<Node, Node> local_history = new HashMap<>();
+	public HashMap<Node, Integer> local_history = new HashMap<>();
 	
 	public final int WIDTH;
 	public final int HEIGHT;
@@ -37,7 +37,7 @@ public abstract class ASolver {
 	 * @param initial
 	 * @param goal
 	 */
-	public ASolver(int width, int height, byte[] initial, byte[] goal) {
+	public AbstractSolver(int width, int height, byte[] initial, byte[] goal) {
 		this.WIDTH = width;
 		this.HEIGHT = height;
 		this.LENGTH = this.WIDTH * this.HEIGHT;
@@ -124,7 +124,7 @@ public abstract class ASolver {
         }
         if (node.distance == 0) {
             for (int i = 1, j = 0; i < node.data.length; i++, j++) {
-                byte ideal = positions[j];
+                byte ideal = positions[node.data[i]];
                 node.distance += abs((ideal % WIDTH) - (j % WIDTH));
                 node.distance += abs((ideal / WIDTH) - (j / WIDTH));
             }
@@ -211,5 +211,6 @@ public abstract class ASolver {
 		System.out.println("NODES EXPLORED: " + (all_history.size() + prunes));
 		System.out.println("CACHE SIZE: " + all_history.size());
 		System.out.println("PRUNES PERFORMED: " + prunes);
+		System.out.println("MANHATTAN DISTANCE: " + manhattanDistance(init));
 	}
 }

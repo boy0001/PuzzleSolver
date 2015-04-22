@@ -1,20 +1,26 @@
 package com.boydti.puzzle;
 
-import java.util.ArrayDeque;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
-public class DFSolver extends ASolver {
+public class GBFSSolver extends AbstractSolver {
 
-	public DFSolver(int width, int height, byte[] initial, byte[] goal) {
+	public GBFSSolver(int width, int height, byte[] initial, byte[] goal) {
 		super(width, height, initial, goal);
 	}
-
-	public ArrayDeque<Node> queue = new ArrayDeque<Node>();
+	
+	public PriorityQueue<Node> queue = new PriorityQueue<Node>(1, new Comparator<Node>() {
+        @Override
+        public int compare(Node a, Node b) {
+            return manhattanDistance(a) - manhattanDistance(b);
+        }
+    });
 	
 	@Override
 	public void solve() {
 		Node goal = getState(GOAL);
 		Node state = getState(INITIAL);
-		queue.push(state);
+		queue.add(state);
 		while (true) {
 			state = queue.remove();
 			local_history.remove(state);
@@ -26,8 +32,8 @@ public class DFSolver extends ASolver {
 			if (up != null) {
 				if (!all_history.containsKey(up)) {
 					empty = false;
-					queue.push(up);
-					local_history.put(up, state);
+					queue.add(up);
+					local_history.put(up, null);
 					all_history.put(up, state);
 					if (up.equals(goal)) {
 						state = up;
@@ -38,8 +44,8 @@ public class DFSolver extends ASolver {
 			if (left != null) {
 				if (!all_history.containsKey(left)) {
 					empty = false;
-					queue.push(left);
-					local_history.put(left, state);
+					queue.add(left);
+					local_history.put(left, null);
 					all_history.put(left, state);
 					if (left.equals(goal)) {
 						state = left;
@@ -50,8 +56,8 @@ public class DFSolver extends ASolver {
 			if (down != null) {
 				if (!all_history.containsKey(down)) {
 					empty = false;
-					queue.push(down);
-					local_history.put(down, state);
+					queue.add(down);
+					local_history.put(down, null);
 					all_history.put(down, state);
 					if (down.equals(goal)) {
 						state = down;
@@ -62,8 +68,8 @@ public class DFSolver extends ASolver {
 			if (right != null) {
 				if (!all_history.containsKey(right)) {
 					empty = false;
-					queue.push(right);
-					local_history.put(right, state);
+					queue.add(right);
+					local_history.put(right, null);
 					all_history.put(right, state);
 					if (right.equals(goal)) {
 						state = right;
