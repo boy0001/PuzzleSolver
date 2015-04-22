@@ -1,11 +1,12 @@
+/*
+ * Copyright (c) Jesse Boyd 2015 ALL RIGHTS RESERVED
+ */
+
 package com.boydti.puzzle;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map.Entry;
 
 public abstract class AbstractSolver {
 

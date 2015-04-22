@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) Jesse Boyd 2015 ALL RIGHTS RESERVED
+ */
+
 package com.boydti.puzzle;
 
 import java.util.ArrayDeque;
