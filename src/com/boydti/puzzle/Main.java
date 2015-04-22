@@ -1,6 +1,11 @@
 package com.boydti.puzzle;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.List;
 
 public class Main {
     
@@ -13,77 +18,61 @@ public class Main {
 	public static void main(String[] args) {
 	    // The initial and goal states
 	    byte[] initial;
-	    byte[] goal = null;
+	    byte[] goal;
+	    int width;
+	    int height;
+	    String solver;
 	    
-	    /*
-	     * Some options to choose from
-	     */
-	    
-	    // 3x5 -> 14 moves
-//	    initial = new byte[] { 1, 2, 3, 5, 11, 6, 4, 13, 9, 8, 0, 12, 7, 10, 14 };
-	    
-	    // 3x3 -> 20 moves
-//	    initial = new byte[] { 6, 7, 4, 1, 5, 3, 8, 0, 2 };
-//	    goal = new byte[] {3, 4, 2, 1, 8, 7, 6, 0, 5};
-	    
-	    // 3x3 -> 31 moves
-//	    initial = new byte[] { 6,4,7,8,5,0,3,2,1 };
-	    
-	    // 5x2 -> 55 moves
-	    initial = new byte[] {0,9,3,7,1,5,4,8,2,6};
-	    
-	    /*
-	     * Algorithm BFS, DFS, GBFS, AS, CUS1, CUS2
-	     */
-		String solver = "DFS";
-		int width = 5;
-		int height = 2;
-		
 		/*
 		 * Parsing command line arguments (so you can specify the solver etc)
 		 */
-		for (String arg : args) {
-			String[] split = arg.split("=");
-			if (split.length == 2) {
-				switch (split[0]) {
-					case "start": {
-						String[] array = split[1].split(",");
-						initial = new byte[array.length];
-						for (int i = 0; i < array.length; i++) {
-							initial[i] = Byte.parseByte(array[i]);
-						}
-					}
-					case "end": {
-						String[] array = split[1].split(",");
-						goal = new byte[array.length];
-						for (int i = 0; i < array.length; i++) {
-							goal[i] = Byte.parseByte(array[i]);
-						}
-					}
-					case "solver": {
-						solver = split[1];
-					}
-					case "width": {
-						width = Integer.parseInt(split[1]);
-					}
-					case "height": {
-						height = Integer.parseInt(split[1]);
-					}
-				}
-			}
-			else if (split.length == 0) {
-			    solver = arg;
-			}
-		}
-		// Setting the goal to the sorted byte array (if it wasn't specified)
-		if (goal == null) {
-		    goal = initial.clone();
-		    Arrays.sort(goal);
-		    for (int i = 1; i < goal.length; i++) {                
-		        goal[i-1] = goal[i];
+		if (args.length == 2) {
+		    File file = new File(args[0]);
+		    List<String> lines;
+		    try {
+                lines = Files.readAllLines(file.toPath(), Charset.defaultCharset());
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
             }
-		    goal[goal.length - 1] = 0;
-        }
+		    String[] sizeSplit = lines.get(0).split("x");
+		    width = Integer.parseInt(sizeSplit[0]);
+		    height = Integer.parseInt(sizeSplit[1]);
+		    
+		    String[] startStr = lines.get(2).split(" ");
+            initial = new byte[startStr.length];
+            for (int i = 0; i < startStr.length; i++) {
+                initial[i] = Byte.parseByte(startStr[i]);
+            }
+            
+            String[] endStr = lines.get(1).split(" ");
+            goal = new byte[startStr.length];
+            for (int i = 0; i < endStr.length; i++) {
+                goal[i] = Byte.parseByte(endStr[i]);
+            }
+		    
+            solver = args[1];
+            
+		}
+		else {
+		    System.out.print("No arguments provided, proceeding with defaults!");
+//	        initial = new byte[] { 1, 2, 3, 5, 11, 6, 4, 13, 9, 8, 0, 12, 7, 10, 14 }; // 3x5 -> 14 moves
+	        
+	        initial = new byte[] { 6, 7, 4, 1, 5, 3, 8, 0, 2 }; // 3x3 -> 20 moves
+	        goal = new byte[] {3, 4, 2, 1, 8, 7, 6, 0, 5};
+	        
+//	      initial = new byte[] { 6,4,7,8,5,0,3,2,1 }; // 3x3 -> 31 moves
+	        
+//	      initial = new byte[] {0,9,3,7,1,5,4,8,2,6}; // 5x2 -> 55 moves
+	        
+	        solver = "BFS";
+	        width = 3;
+	        height = 3;
+	        
+//	        if (goal == null) {
+//	            goal = getGoal(initial);
+//	        }
+		}
 		
 		// Creating a new instance of the specified ASolver class
 		AbstractSolver imp;
@@ -108,7 +97,7 @@ public class Main {
 		}
 		catch (Exception e) {
 		    e.printStackTrace();
-		    System.out.println(System.currentTimeMillis() - start);
+		    System.out.println("Took: " + (System.currentTimeMillis() - start) + "ms");
 		    System.out.println("No solutions found!");
 		    System.out.println("NODES EXPLORED: " + (imp.all_history.size() + imp.prunes));
 	        System.out.println("CACHE SIZE: " + imp.all_history.size());
@@ -117,10 +106,23 @@ public class Main {
 		    return;
 		}
 		
-		System.out.println(System.currentTimeMillis() - start);
+		System.out.println("Took: " + (System.currentTimeMillis() - start) + "ms");
 		System.out.println("Tracing history, please wait...");
 		
 		// Display the stats
 		imp.displayPath(imp.getState(goal));
+	}
+	
+	/**
+	 * Get the default goal if the goal is not set 
+	 */
+	public static byte[] getGoal(byte[] initial) {
+	    byte[] goal = initial.clone();
+	    Arrays.sort(goal);
+	    for (int i = 1; i < goal.length; i++) {                
+	        goal[i-1] = goal[i];
+	    }
+	    goal[goal.length - 1] = 0;
+	    return goal;
 	}
 }
