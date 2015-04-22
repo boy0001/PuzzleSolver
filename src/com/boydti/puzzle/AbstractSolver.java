@@ -15,9 +15,18 @@ public abstract class AbstractSolver {
      */
 	public HashMap<Node, Node> all_history = new HashMap<>();
 	
+	/**
+	 * Dimensions
+	 */
 	public final int WIDTH;
 	public final int HEIGHT;
 	public final int LENGTH;
+	
+	/**
+	 * History related...
+	 */
+	int prunes = 0;
+    public ArrayDeque<Node> toRemove = new ArrayDeque<>();
 	
 	/**
 	 * Initial byte array
@@ -91,6 +100,10 @@ public abstract class AbstractSolver {
 		return state;
 	}
 	
+	/**
+	 * Get the state if move down (or null)
+	 *  - From the perspective of the empty slot
+	 */
 	public Node getDown(Node state) {
 		byte val = (byte) (state.data[0] + WIDTH);
 		if (val > LENGTH) {
@@ -99,6 +112,10 @@ public abstract class AbstractSolver {
 		return getSwap(state, val);
 	}
 	
+	/**
+     * Get the state if move up (or null)
+     *  - From the perspective of the empty slot
+     */
 	public Node getUp(Node state) {
 		byte val = (byte) (state.data[0] - WIDTH);
 		if (val <= 0) {
@@ -107,13 +124,18 @@ public abstract class AbstractSolver {
 		return getSwap(state, val);
 	}
 	
-	
+	/**
+     * An array for the positions of the puzzle
+     */
 	public byte[] positions;
 
 	public int abs(int a) {
 	    return a < 0 ? 0 - a : a;
 	}
-	
+
+	/**
+	 * Calculate the Manhattan Distance to the goal
+	 */
     public int manhattanDistance(Node node) {
         if (positions == null) {
             positions = new byte[GOAL.length];
@@ -131,6 +153,10 @@ public abstract class AbstractSolver {
         return node.distance;
     }
 	
+    /**
+     * Get the state if move left (or null)
+     *  - From the perspective of the empty slot
+     */
 	public Node getLeft(Node state) {
 		byte val = (byte) (state.data[0] - 1);
 		if ((val) % WIDTH == 0) {
@@ -139,6 +165,10 @@ public abstract class AbstractSolver {
 		return getSwap(state, val);
 	}
 	
+	/**
+     * Get the state if move right (or null)
+     *  - From the perspective of the empty slot
+     */
 	public Node getRight(Node state) {
 		if (state.data[0] % WIDTH == 0) {
 			return null;
@@ -146,6 +176,9 @@ public abstract class AbstractSolver {
 		return getSwap(state, (byte) (state.data[0] + 1));
 	}
 	
+	/**
+     * Get the state if an index is swapped with the empty slot
+     */
 	public Node getSwap(Node state, byte val) {
 		state = new Node(state.data.clone());
 		byte i = state.data[0];
@@ -156,12 +189,15 @@ public abstract class AbstractSolver {
 		return state;
 	}
 	
-	int prunes = 0;
-	
-	public ArrayDeque<Node> toRemove = new ArrayDeque<>();
-	
+	/**
+	 * Remove a node from history
+	 */
 	public abstract void removeHistory(Node node);
 	
+	
+	/**
+	 * Get the String name for a move
+	 */
 	public String getMove(Node first, Node second) {
 		if (first.equals(getUp(second))) {
 			return "NWOD";
@@ -178,8 +214,14 @@ public abstract class AbstractSolver {
 		return "MAGIC";
 	}
 	
+	/**
+	 * Solve the puzzle
+	 */
 	public abstract void solve();
 	
+	/**
+	 * Print the steps to a state to console
+	 */
 	public void displayPath(Node state) {
 		Node init = getState(INITIAL);
 		StringBuffer history = new StringBuffer();

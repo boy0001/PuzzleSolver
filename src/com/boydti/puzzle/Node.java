@@ -18,10 +18,14 @@ public class Node
         this.data = data;
     }
 
-//    public static int[][] v;
-    
+    /**
+     * The hashcode (cached) (may be unset)
+     */
     int code;
     
+    /**
+     * The Manhattan Distance (cached) (may be unset)
+     */
     int distance;
 
     @Override

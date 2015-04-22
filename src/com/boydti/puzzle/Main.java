@@ -28,7 +28,7 @@ public class Main {
 	    String solver;
 	    
 		/*
-		 * Parsing command line arguments (so you can specify the solver etc)
+		 * Parsing command line arguments (so you can specify the solver etc.)
 		 */
 		if (args.length == 2) {
 		    File file = new File(args[0]);
@@ -54,7 +54,6 @@ public class Main {
             for (int i = 0; i < endStr.length; i++) {
                 goal[i] = Byte.parseByte(endStr[i]);
             }
-		    
             solver = args[1];
             
 		}
@@ -78,7 +77,7 @@ public class Main {
 //	        }
 		}
 		
-		// Creating a new instance of the specified ASolver class
+		// Creating a new instance of the specified AbstractSolver class
 		AbstractSolver imp;
 		try {
 			Class<?> clazz = Class.forName("com.boydti.puzzle." + solver + "Solver");
@@ -91,7 +90,7 @@ public class Main {
 		imp.printState(imp.getState(initial));
 		imp.printState(imp.getState(goal));
 		
-		// Actual code
+		// Record the start time!
 		System.out.println("Solving with " + solver);
 		long start = System.currentTimeMillis();
 
