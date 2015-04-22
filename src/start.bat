@@ -1,0 +1,1 @@
+java com.boydti.puzzle.Main %1 %2

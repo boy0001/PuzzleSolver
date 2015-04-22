@@ -44,5 +44,4 @@ Temporary Items
 *.classpath
 .project
 *.prefs
-*.class
 /bin/
