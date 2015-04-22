@@ -1,6 +1,7 @@
 package com.boydti.puzzle;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.PriorityQueue;
 
 public class CUS2Solver extends AbstractSolver {
@@ -23,6 +24,18 @@ public class CUS2Solver extends AbstractSolver {
             return customDistance(a) - customDistance(b);
         }
     });
+	
+	@Override
+    public void removeHistory(Node node) {
+        toRemove.add(node);
+        if (toRemove.size() > queue.size()) {
+            all_history.remove(toRemove.remove());
+            all_history.remove(toRemove.remove());
+            prunes++;
+        }
+    }
+	
+	HashMap<Node, Integer> local_history = new HashMap<>();
 	
 	public byte[] positions2;
 	

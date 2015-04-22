@@ -17,13 +17,22 @@ public class GBFSSolver extends AbstractSolver {
     });
 	
 	@Override
+    public void removeHistory(Node node) {
+        toRemove.add(node);
+        if (toRemove.size() > queue.size()) {
+            all_history.remove(toRemove.remove());
+            all_history.remove(toRemove.remove());
+            prunes++;
+        }
+    }
+	
+	@Override
 	public void solve() {
 		Node goal = getState(GOAL);
 		Node state = getState(INITIAL);
 		queue.add(state);
 		while (true) {
 			state = queue.remove();
-			local_history.remove(state);
 			Node up = getUp(state);
 			Node left = getLeft(state);
 			Node down = getDown(state);
@@ -33,7 +42,6 @@ public class GBFSSolver extends AbstractSolver {
 				if (!all_history.containsKey(up)) {
 					empty = false;
 					queue.add(up);
-					local_history.put(up, null);
 					all_history.put(up, state);
 					if (up.equals(goal)) {
 						state = up;
@@ -45,7 +53,6 @@ public class GBFSSolver extends AbstractSolver {
 				if (!all_history.containsKey(left)) {
 					empty = false;
 					queue.add(left);
-					local_history.put(left, null);
 					all_history.put(left, state);
 					if (left.equals(goal)) {
 						state = left;
@@ -57,7 +64,6 @@ public class GBFSSolver extends AbstractSolver {
 				if (!all_history.containsKey(down)) {
 					empty = false;
 					queue.add(down);
-					local_history.put(down, null);
 					all_history.put(down, state);
 					if (down.equals(goal)) {
 						state = down;
@@ -69,7 +75,6 @@ public class GBFSSolver extends AbstractSolver {
 				if (!all_history.containsKey(right)) {
 					empty = false;
 					queue.add(right);
-					local_history.put(right, null);
 					all_history.put(right, state);
 					if (right.equals(goal)) {
 						state = right;

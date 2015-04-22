@@ -3,6 +3,9 @@ package com.boydti.puzzle;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 public abstract class AbstractSolver {
 
@@ -10,11 +13,6 @@ public abstract class AbstractSolver {
      * The history map for the nodes
      */
 	public HashMap<Node, Node> all_history = new HashMap<>();
-	
-	/**
-	 * hash structure representing the queue
-	 */
-	public HashMap<Node, Integer> local_history = new HashMap<>();
 	
 	public final int WIDTH;
 	public final int HEIGHT;
@@ -157,24 +155,11 @@ public abstract class AbstractSolver {
 		return state;
 	}
 	
-	public ArrayDeque<Node> toRemove = new ArrayDeque<Node>();
-	
 	int prunes = 0;
 	
-	public void removeHistory(Node previous) {
-	    int size = all_history.size();
-	    all_history.remove(previous);
-	    Node state;
-	    while(previous != null) {
-            state = previous;
-            previous = all_history.get(state);
-            if (local_history.containsKey(previous)) {
-                break;
-            }
-            all_history.remove(state);
-        }
-	    prunes += size - all_history.size();
-	}
+	public ArrayDeque<Node> toRemove = new ArrayDeque<>();
+	
+	public abstract void removeHistory(Node node);
 	
 	public String getMove(Node first, Node second) {
 		if (first.equals(getUp(second))) {

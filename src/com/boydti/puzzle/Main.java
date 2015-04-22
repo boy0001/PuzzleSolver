@@ -20,7 +20,7 @@ public class Main {
 	     */
 	    
 	    // 3x5 -> 14 moves
-	    initial = new byte[] { 1, 2, 3, 5, 11, 6, 4, 13, 9, 8, 0, 12, 7, 10, 14 };
+//	    initial = new byte[] { 1, 2, 3, 5, 11, 6, 4, 13, 9, 8, 0, 12, 7, 10, 14 };
 	    
 	    // 3x3 -> 20 moves
 //	    initial = new byte[] { 6, 7, 4, 1, 5, 3, 8, 0, 2 };
@@ -30,14 +30,14 @@ public class Main {
 //	    initial = new byte[] { 6,4,7,8,5,0,3,2,1 };
 	    
 	    // 5x2 -> 55 moves
-//	    initial = new byte[] {0,9,3,7,1,5,4,8,2,6};
+	    initial = new byte[] {0,9,3,7,1,5,4,8,2,6};
 	    
 	    /*
 	     * Algorithm BFS, DFS, GBFS, AS, CUS1, CUS2
 	     */
-		String solver = "BFS";
-		int width = 3;
-		int height = 5;
+		String solver = "DFS";
+		int width = 5;
+		int height = 2;
 		
 		/*
 		 * Parsing command line arguments (so you can specify the solver etc)
@@ -110,6 +110,10 @@ public class Main {
 		    e.printStackTrace();
 		    System.out.println(System.currentTimeMillis() - start);
 		    System.out.println("No solutions found!");
+		    System.out.println("NODES EXPLORED: " + (imp.all_history.size() + imp.prunes));
+	        System.out.println("CACHE SIZE: " + imp.all_history.size());
+	        System.out.println("PRUNES PERFORMED: " + imp.prunes);
+	        System.out.println("MANHATTAN DISTANCE: " + imp.manhattanDistance(imp.getState(imp.INITIAL)));
 		    return;
 		}
 		

@@ -13,6 +13,16 @@ public class BFSSolver extends AbstractSolver {
 	 */
 	public ArrayDeque<Node> queue = new ArrayDeque<Node>();
 
+	@Override
+	public void removeHistory(Node node) {
+	    toRemove.add(node);
+        if (toRemove.size() > queue.size()) {
+            all_history.remove(toRemove.remove());
+            all_history.remove(toRemove.remove());
+            prunes++;
+        }
+	}
+	
 	/**
 	 * Things to note:
 	 * 
@@ -37,7 +47,6 @@ public class BFSSolver extends AbstractSolver {
 		    // Set the state to the first in the queue
 		    // Remove it from local history (as it no longer needs to be cached)
 			state = queue.remove();
-			local_history.remove(state);
 			
 			// Calculate the up, left, down and right options
 			Node up = getUp(state);
@@ -59,9 +68,6 @@ public class BFSSolver extends AbstractSolver {
 					// Add this node to the queue
 					queue.add(up);
 					
-					// Add this node to the local cache
-					local_history.put(up, null);
-					
 					// Add this node to the global cache
 					all_history.put(up, state);
 					
@@ -76,7 +82,6 @@ public class BFSSolver extends AbstractSolver {
 				if (!all_history.containsKey(left)) {
 					empty = false;
 					queue.add(left);
-					local_history.put(left, null);
 					all_history.put(left, state);
 					if (left.equals(goal)) {
 						state = left;
@@ -88,7 +93,6 @@ public class BFSSolver extends AbstractSolver {
 				if (!all_history.containsKey(down)) {
 					empty = false;
 					queue.add(down);
-					local_history.put(down, null);
 					all_history.put(down, state);
 					if (down.equals(goal)) {
 						state = down;
@@ -100,7 +104,6 @@ public class BFSSolver extends AbstractSolver {
 				if (!all_history.containsKey(right)) {
 					empty = false;
 					queue.add(right);
-					local_history.put(right, null);
 					all_history.put(right, state);
 					if (right.equals(goal)) {
 						state = right;

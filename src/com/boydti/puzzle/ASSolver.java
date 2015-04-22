@@ -1,6 +1,7 @@
 package com.boydti.puzzle;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.PriorityQueue;
 
 public class ASSolver extends AbstractSolver {
@@ -15,6 +16,18 @@ public class ASSolver extends AbstractSolver {
             return manhattanDistance(a) - manhattanDistance(b);
         }
     });
+	
+	@Override
+    public void removeHistory(Node node) {
+        toRemove.add(node);
+        if (toRemove.size() > queue.size()) {
+            all_history.remove(toRemove.remove());
+            all_history.remove(toRemove.remove());
+            prunes++;
+        }
+    }
+	
+	HashMap<Node, Integer> local_history = new HashMap<>();
 	
 	@Override
 	public int manhattanDistance(Node node) {
