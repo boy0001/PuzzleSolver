@@ -42,8 +42,8 @@ public class Main {
                 return;
             }
 		    String[] sizeSplit = lines.get(0).split("x");
-		    height = Integer.parseInt(sizeSplit[0]);
-		    width = Integer.parseInt(sizeSplit[1]);
+		    width = Integer.parseInt(sizeSplit[0]);
+		    height = Integer.parseInt(sizeSplit[1]);
 		    
 		    String[] startStr = lines.get(2).split(" ");
             initial = new byte[startStr.length];
@@ -63,16 +63,16 @@ public class Main {
 		    System.out.println("No arguments provided, proceeding with defaults!");
 //	        initial = new byte[] { 1, 2, 3, 5, 11, 6, 4, 13, 9, 8, 0, 12, 7, 10, 14 }; // 3x5 -> 14 moves
 	        
-//	        initial = new byte[] { 6, 7, 4, 1, 5, 3, 8, 0, 2 }; // 3x3 -> 20 moves
-//	        goal = new byte[] {3, 4, 2, 1, 8, 7, 6, 0, 5};
+	        initial = new byte[] { 6, 7, 4, 1, 5, 3, 8, 0, 2 }; // 3x3 -> 20 moves
+	        goal = new byte[] {3, 4, 2, 1, 8, 7, 6, 0, 5};
 	        
 //	      initial = new byte[] { 6,4,7,8,5,0,3,2,1 }; // 3x3 -> 31 moves
 	        
-	      initial = new byte[] {0,9,3,7,1,5,4,8,2,6}; // 5x2 -> 55 moves
+//	      initial = new byte[] {0,9,3,7,1,5,4,8,2,6}; // 5x2 -> 55 moves
 	        
-	        solver = "AS";
+	        solver = "DFS";
 	        width = 3;
-	        height = 5;
+	        height = 3;
 	        
 	        if (goal == null) {
 	            goal = getGoal(initial);

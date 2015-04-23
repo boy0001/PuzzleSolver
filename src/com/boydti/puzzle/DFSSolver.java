@@ -5,6 +5,7 @@
 package com.boydti.puzzle;
 
 import java.util.ArrayDeque;
+import java.util.HashMap;
 
 public class DFSSolver extends AbstractSolver {
 
@@ -18,14 +19,20 @@ public class DFSSolver extends AbstractSolver {
 	public void removeHistory(Node node) {
 	}
 	
+	HashMap<Node, Node> local_history = new HashMap<>();
+	
 	@Override
 	public void solve() {
 		Node goal = getState(GOAL);
 		Node state = getState(INITIAL);
 		queue.push(state);
-		all_history.put(state, state);
 		while (true) {
 			state = queue.remove();
+			if (all_history.containsKey(state)) {
+				continue;
+			}
+			all_history.put(state, local_history.get(state));
+			local_history.remove(state);
 			Node up = getUp(state);
 			Node left = getLeft(state);
 			Node down = getDown(state);
@@ -33,47 +40,43 @@ public class DFSSolver extends AbstractSolver {
 			boolean empty = true;
             
 			if (right != null) {
-                if (!all_history.containsKey(right)) {
-                    empty = false;
-                    queue.push(right);
-                    all_history.put(right, state);
-                    if (right.equals(goal)) {
-                        state = right;
-                        return;
-                    }
+				local_history.put(right, state);
+                empty = false;
+                queue.push(right);
+                if (right.equals(goal)) {
+                	all_history.put(right, state);
+                    state = right;
+                    return;
                 }
             }
 			if (down != null) {
-				if (!all_history.containsKey(down)) {
-					empty = false;
-					queue.push(down);
+				local_history.put(down, state);
+				empty = false;
+				queue.push(down);
+				if (down.equals(goal)) {
 					all_history.put(down, state);
-					if (down.equals(goal)) {
-						state = down;
-						return;
-					}
+					state = down;
+					return;
 				}
 			}
 			if (left != null) {
-                if (!all_history.containsKey(left)) {
-                    empty = false;
-                    queue.push(left);
-                    all_history.put(left, state);
-                    if (left.equals(goal)) {
-                        state = left;
-                        return;
-                    }
+				local_history.put(left, state);
+                empty = false;
+                queue.push(left);
+                if (left.equals(goal)) {
+                	all_history.put(left, state);
+                    state = left;
+                    return;
                 }
             }
 			if (up != null) {
-                if (!all_history.containsKey(up)) {
-                    empty = false;
-                    queue.push(up);
-                    all_history.put(up, state);
-                    if (up.equals(goal)) {
-                        state = up;
-                        return;
-                    }
+				local_history.put(up, state);
+                empty = false;
+                queue.push(up);
+                if (up.equals(goal)) {
+                	all_history.put(up, state);
+                    state = up;
+                    return;
                 }
             }
 			if (empty) {
