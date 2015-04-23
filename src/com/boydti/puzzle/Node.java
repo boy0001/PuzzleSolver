@@ -27,6 +27,11 @@ public class Node
      * The Manhattan Distance (cached) (may be unset)
      */
     int distance;
+    
+    /**
+     * The number of moves
+     */
+    int moves;
 
     @Override
     public boolean equals(Object other)

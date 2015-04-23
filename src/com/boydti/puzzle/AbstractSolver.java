@@ -145,9 +145,11 @@ public abstract class AbstractSolver {
         }
         if (node.distance == 0) {
             for (int i = 1, j = 0; i < node.data.length; i++, j++) {
-                byte ideal = positions[node.data[i]];
-                node.distance += abs((ideal % WIDTH) - (j % WIDTH));
-                node.distance += abs((ideal / WIDTH) - (j / WIDTH));
+                if (i != node.data[0]) {
+                    byte ideal = positions[node.data[i]];
+                    node.distance += abs((ideal % WIDTH) - (j % WIDTH));
+                    node.distance += abs((ideal / WIDTH) - (j / WIDTH));
+                }
             }
         }
         return node.distance;

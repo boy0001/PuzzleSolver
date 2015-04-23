@@ -31,7 +31,7 @@ public class ASSolver extends AbstractSolver {
         }
     }
 	
-	HashMap<Node, Integer> local_history = new HashMap<>();
+//	HashMap<Node, Integer> local_history = new HashMap<>();
 	
 	@Override
 	public int manhattanDistance(Node node) {
@@ -43,12 +43,11 @@ public class ASSolver extends AbstractSolver {
         }
         if (node.distance == 0) {
             for (int i = 1, j = 0; i < node.data.length; i++, j++) {
-                byte ideal = positions[node.data[i]];
-                node.distance += abs((ideal % WIDTH) - (j % WIDTH));
-                node.distance += abs((ideal / WIDTH) - (j / WIDTH));
-                Integer moves = local_history.get(node);
-                if (moves != null) {
-                    node.distance += moves / Main.PRECISION;
+                if (i != node.data[0]) {
+                    byte ideal = positions[node.data[i]];
+                    node.distance += abs((ideal % WIDTH) - (j % WIDTH));
+                    node.distance += abs((ideal / WIDTH) - (j / WIDTH));
+                    node.distance += node.moves / Main.PRECISION;
                 }
             }
         }
@@ -62,11 +61,10 @@ public class ASSolver extends AbstractSolver {
 		queue.add(state);
 		while (true) {
 			state = queue.remove();
-			Integer moves = local_history.get(state);
+			Integer moves = state.moves;
 			if (moves == null) {
 			    moves = 0;
 			}
-			local_history.remove(state);
 			Node up = getUp(state);
 			Node left = getLeft(state);
 			Node down = getDown(state);
@@ -75,7 +73,7 @@ public class ASSolver extends AbstractSolver {
 			if (up != null) {
 				if (!all_history.containsKey(up)) {
 					empty = false;
-					local_history.put(up, moves + 1);
+					up.moves = state.moves + 1;
 					queue.add(up);
 					all_history.put(up, state);
 					if (up.equals(goal)) {
@@ -87,7 +85,7 @@ public class ASSolver extends AbstractSolver {
 			if (left != null) {
 				if (!all_history.containsKey(left)) {
 					empty = false;
-					local_history.put(left, moves + 1);
+					left.moves = state.moves + 1;
 					queue.add(left);
 					all_history.put(left, state);
 					if (left.equals(goal)) {
@@ -99,7 +97,7 @@ public class ASSolver extends AbstractSolver {
 			if (down != null) {
 				if (!all_history.containsKey(down)) {
 					empty = false;
-					local_history.put(down, moves + 1);
+					down.moves = state.moves + 1;
 					queue.add(down);
 					all_history.put(down, state);
 					if (down.equals(goal)) {
@@ -111,7 +109,7 @@ public class ASSolver extends AbstractSolver {
 			if (right != null) {
 				if (!all_history.containsKey(right)) {
 					empty = false;
-					local_history.put(right, moves + 1);
+					right.moves = state.moves + 1;
 					queue.add(right);
 					all_history.put(right, state);
 					if (right.equals(goal)) {

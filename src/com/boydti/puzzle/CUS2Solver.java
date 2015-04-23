@@ -54,17 +54,19 @@ public class CUS2Solver extends AbstractSolver {
         }
         if (node.distance == 0) {
             for (int i = 1, j = 0; i < node.data.length; i++, j++) {
-                byte ideal = positions[node.data[i]];
-                node.distance += abs((ideal % WIDTH) - (j % WIDTH)) * Main.PRECISION;
-                node.distance += abs((ideal / WIDTH) - (j / WIDTH)) * Main.PRECISION;
-                
-                byte ideal2 = positions2[node.data[i]];
-                node.distance -= abs((ideal2 % WIDTH) - (j % WIDTH)) * Main.PRECISION;
-                node.distance -= abs((ideal2 / WIDTH) - (j / WIDTH)) * Main.PRECISION;
-
-                Integer moves = local_history.get(node);
-                if (moves != null) {
-                    node.distance += moves;
+                if (i != node.data[0]) {
+                    byte ideal = positions[node.data[i]];
+                    node.distance += abs((ideal % WIDTH) - (j % WIDTH)) * Main.PRECISION;
+                    node.distance += abs((ideal / WIDTH) - (j / WIDTH)) * Main.PRECISION;
+                    
+                    byte ideal2 = positions2[node.data[i]];
+                    node.distance -= abs((ideal2 % WIDTH) - (j % WIDTH)) * Main.PRECISION;
+                    node.distance -= abs((ideal2 / WIDTH) - (j / WIDTH)) * Main.PRECISION;
+    
+                    Integer moves = local_history.get(node);
+                    if (moves != null) {
+                        node.distance += moves;
+                    }
                 }
             }
         }
