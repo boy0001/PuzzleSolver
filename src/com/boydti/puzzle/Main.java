@@ -60,7 +60,6 @@ public class Main {
             
 		}
 		else {
-		    System.out.println("No arguments provided, proceeding with defaults!");
 //	        initial = new byte[] { 1, 2, 3, 5, 11, 6, 4, 13, 9, 8, 0, 12, 7, 10, 14 }; // 3x5 -> 14 moves
 	        
 	        initial = new byte[] { 6, 7, 4, 1, 5, 3, 8, 0, 2 }; // 3x3 -> 20 moves
@@ -70,13 +69,15 @@ public class Main {
 	        
 //	      initial = new byte[] {0,9,3,7,1,5,4,8,2,6}; // 5x2 -> 55 moves
 	        
-	        solver = "DFS";
+	        solver = "AS";
 	        width = 3;
 	        height = 3;
 	        
 	        if (goal == null) {
 	            goal = getGoal(initial);
 	        }
+	        
+	        filename = "null.txt";
 		}
 		
 		// Creating a new instance of the specified AbstractSolver class
@@ -89,32 +90,16 @@ public class Main {
 			imp = new BFSSolver(width, height, initial, goal);
 		}
 		
-		imp.printState(imp.getState(initial));
-		imp.printState(imp.getState(goal));
-		
-		// Record the start time!
-		System.out.println("Solving with " + solver);
-		long start = System.currentTimeMillis();
-
 		// Solving the puzzle 
 		try {
 		    imp.solve();
 		}
 		catch (Exception e) {
-		    e.printStackTrace();
-		    System.out.println("Took: " + (System.currentTimeMillis() - start) + "ms");
-		    System.out.println("No solutions found!");
-		    System.out.println("NODES EXPLORED: " + (imp.all_history.size() + imp.prunes));
-	        System.out.println("CACHE SIZE: " + imp.all_history.size());
-	        System.out.println("PRUNES PERFORMED: " + imp.prunes);
-	        System.out.println("MANHATTAN DISTANCE: " + imp.manhattanDistance(imp.getState(imp.INITIAL)));
+			System.out.println(filename + " " + solver + " " + (imp.all_history.size() + imp.prunes));
+			System.out.println("No solution found");
 		    return;
 		}
-		
-		System.out.println("Took: " + (System.currentTimeMillis() - start) + "ms");
-		System.out.println("Tracing history, please wait...");
-		
-		// Display the stats
+		System.out.println(filename + " " + solver + " " + (imp.all_history.size() + imp.prunes));
 		imp.displayPath(imp.getState(goal));
 	}
 	

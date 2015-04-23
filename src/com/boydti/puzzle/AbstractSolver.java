@@ -237,10 +237,5 @@ public abstract class AbstractSolver {
 			state = previous;
 		}
 		System.out.println(history.reverse());
-		System.out.println("TOTOAL MOVES: " + moves);
-		System.out.println("NODES EXPLORED: " + (all_history.size() + prunes));
-		System.out.println("CACHE SIZE: " + all_history.size());
-		System.out.println("PRUNES PERFORMED: " + prunes);
-		System.out.println("MANHATTAN DISTANCE: " + manhattanDistance(init));
 	}
 }

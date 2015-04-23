@@ -47,9 +47,9 @@ public class ASSolver extends AbstractSolver {
                     byte ideal = positions[node.data[i]];
                     node.distance += abs((ideal % WIDTH) - (j % WIDTH));
                     node.distance += abs((ideal / WIDTH) - (j / WIDTH));
-                    node.distance += node.moves / Main.PRECISION;
                 }
             }
+            node.distance += node.moves / Main.PRECISION;
         }
         return node.distance;
     }

@@ -5,11 +5,12 @@
 package com.boydti.puzzle;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.PriorityQueue;
 
-public class CUS2Solver extends AbstractSolver {
+public class OASSolver extends AbstractSolver {
 
-	public CUS2Solver(int width, int height, byte[] initial, byte[] goal) {
+	public OASSolver(int width, int height, byte[] initial, byte[] goal) {
 		super(width, height, initial, goal);
 	}
 	

@@ -2,7 +2,7 @@
  * Copyright (c) Jesse Boyd 2015 ALL RIGHTS RESERVED
  */
 
-package com.boydti.puzzle;
+package com.boydti.puzzletest;
 
 import java.util.Arrays;
 
@@ -27,20 +27,12 @@ public class Node
      * The Manhattan Distance (cached) (may be unset)
      */
     int distance;
-    
-    /**
-     * The number of moves
-     */
-    int moves;
 
     @Override
     public boolean equals(Object other)
     {
         if (other == null) { 
             return false;
-        }
-        if (other.hashCode() != this.hashCode()) {
-        	return false;
         }
         return Arrays.equals(data, ((Node)other).data);
     }
