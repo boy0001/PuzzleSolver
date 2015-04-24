@@ -1,0 +1,33 @@
+The following are the results of 100 random 4x4 puzzles for the different methods:
+Puzzle generation settings:
+Dimensions: 4x4
+Mix moves: 1000
+
+--- GBFS ---
+VISITS
+ - mean: 3680.99
+ - median: 3187.0
+ - sd: 2366.9259113668936
+MOVES
+ - mean: 183.35
+ - median: 176.0
+ - sd: 49.274410194339225
+TIMES
+ - mean: 3.14
+ - median: 2.0
+ - sd: 4.87241213363566
+-----------
+--- CUS2 ---
+VISITS
+ - mean: 7016.35
+ - median: 6927.0
+ - sd: 4169.809711185871
+MOVES
+ - mean: 122.31
+ - median: 121.0
+ - sd: 23.44939018396854
+TIMES
+ - mean: 4.24
+ - median: 4.0
+ - sd: 4.886962246631336
+-----------

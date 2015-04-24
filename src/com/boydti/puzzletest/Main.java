@@ -9,7 +9,7 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) {
     	
-    	// If you are generating files
+    	// If you are ONLY generating files
     	boolean generate = false;
     	
     	if (generate) // Generate random files
@@ -21,11 +21,11 @@ public class Main {
 	    	Generator generator = new Generator();
 	    	generator.generate(WIDTH, HEIGHT, num_files, rand);
     	}
-    	else // Testing
+    	else // Testing your solver (This is compatible with any program using standard output)
     	{
-    		int WIDTH = 3;
-    		int HEIGHT = 3;
-    		String[] METHODS = {"BFS", "GBFS", "AS", "CUS2", "CUS1", "DFS"};
+    		int WIDTH = 2;
+    		int HEIGHT = 15;
+    		String[] METHODS = {"CUS2"};
     		int num_tests = 100;
     		String classpath = "com.boydti.puzzle.Main";
     		boolean random = false;
@@ -41,8 +41,5 @@ public class Main {
     		}
     		
     	}
-    	
-    	
-    	
     }
 }

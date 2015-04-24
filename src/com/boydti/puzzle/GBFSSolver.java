@@ -13,6 +13,7 @@ public class GBFSSolver extends AbstractSolver {
 		super(width, height, initial, goal);
 	}
 	
+	// Use a sorted queue and sort by the manhattan distance
 	public PriorityQueue<Node> queue = new PriorityQueue<Node>(1, new Comparator<Node>() {
         @Override
         public int compare(Node a, Node b) {

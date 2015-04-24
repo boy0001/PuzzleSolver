@@ -7,12 +7,20 @@ package com.boydti.puzzle;
 import java.util.ArrayDeque;
 import java.util.HashMap;
 
+/**
+ * This is a custom iterative depth first solver. 
+ * It uses depth first to a depth and slowly increases the max depth until it solves it
+ * (Not very pracical or efficient) 
+ * @author Jesse Boyd
+ *
+ */
 public class CUS1Solver extends AbstractSolver {
 
 	public CUS1Solver(int width, int height, byte[] initial, byte[] goal) {
 		super(width, height, initial, goal);
 	}
 
+	// ArrayDeque is what we use as we don't need any sorting
 	public ArrayDeque<Node> queue = new ArrayDeque<Node>();
 	
 	@Override

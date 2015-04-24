@@ -13,10 +13,13 @@ public class BFSSolver extends AbstractSolver {
 	}
 	
 	/**
-	 * The queue object
+	 * The queue object (ArrayDeque is more performant than a linked list)
 	 */
 	public ArrayDeque<Node> queue = new ArrayDeque<Node>();
 
+	/**
+	 * This shouldn't really be called pruning, it's just basic garbage collection
+	 */
 	@Override
 	public void removeHistory(Node node) {
 	    toRemove.add(node);
@@ -30,8 +33,6 @@ public class BFSSolver extends AbstractSolver {
 	/**
 	 * Things to note:
 	 * 
-	 *  local cache (local_history): Is a hash representation of the current queue
-	 *  
 	 *  global cache (all_history): Is a hash containing the complete history of anything in the local cache
 	 *  
 	 */

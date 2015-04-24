@@ -9,6 +9,10 @@ import java.util.List;
 import java.util.Random;
 
 public class Generator {
+    
+    /**
+     * Generate the random files
+     */
     public List<File> generate(int WIDTH, int HEIGHT, int num_files, boolean rand) {
     	ArrayList<File> files = new ArrayList<>();
         int moves;

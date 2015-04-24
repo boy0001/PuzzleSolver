@@ -1,0 +1,77 @@
+The following are the results of 100 random 4x3 puzzles for the different methods:
+Puzzle generation settings:
+Dimensions: 4x3
+Mix moves: 75
+
+--- BFS ---
+VISITS
+ - mean: 846018.7
+ - median: 82299.0
+ - sd: 1691064.1503353473
+MOVES
+ - mean: 17.0
+ - median: 18.0
+ - sd: 6.54217089351845
+TIMES
+ - mean: 920.2
+ - median: 14.0
+ - sd: 2379.8439780792355
+-----------
+--- GBFS ---
+VISITS
+ - mean: 512.4
+ - median: 259.0
+ - sd: 657.0528441457353
+MOVES
+ - mean: 42.1
+ - median: 38.0
+ - sd: 32.20388175360232
+TIMES
+ - mean: 2.4
+ - median: 1.0
+ - sd: 3.2
+-----------
+--- AS ---
+VISITS
+ - mean: 93.2
+ - median: 44.0
+ - sd: 158.56405645668883
+MOVES
+ - mean: 12.9
+ - median: 14.0
+ - sd: 4.3
+TIMES
+ - mean: 1.0
+ - median: 1.0
+ - sd: 1.4142135623730951
+-----------
+--- CUS2 ---
+VISITS
+ - mean: 679.2
+ - median: 441.0
+ - sd: 724.4782674449248
+MOVES
+ - mean: 34.9
+ - median: 31.0
+ - sd: 17.8294699865139
+TIMES
+ - mean: 2.1
+ - median: 1.0
+ - sd: 1.57797338380595
+-----------
+--- CUS1 ---
+VISITS
+ - mean: 166205.3
+ - median: 18049.0
+ - sd: 411404.22155492037
+MOVES
+ - mean: 17.4
+ - median: 18.0
+ - sd: 4.294182110716777
+TIMES
+ - mean: 990.9
+ - median: 56.0
+ - sd: 2708.2988184467386
+-----------
+--- DFS ---
+Out of memory!

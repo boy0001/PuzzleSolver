@@ -11,22 +11,28 @@ import java.util.List;
 public class Tester {
 
 	public Tester(String classpath, int WIDTH, int HEIGHT, String METHOD, int num_tests, boolean rand) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	    // Generate some random files
 		Generator gen = new Generator();
 		List<File> files = gen.generate(WIDTH, HEIGHT, num_tests, rand);
 		
+		// Get the class used for testing
 		Class<?> clazz = Class.forName(classpath);
 		
+		// Change the output stream so we can collect it
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 	    PrintStream ps = new PrintStream(os);
 	    PrintStream old = System.out;
 	    System.setOut(ps);
 
+	    // Initialize the arrays for the data
 	    int[] explores = new int[files.size()];
 	    int[] moves = new int[files.size()];
 	    int[] times = new int[files.size()];
 
+	    // Get the main method
 	    Method meth = clazz.getMethod("main", String[].class);
 	    
+	    // Run the test for each file
 	    int j = 0;
 		for (File file : files) {
 		    String[] params = new String[] {file.getPath(), METHOD}; // init params accordingly
@@ -36,9 +42,11 @@ public class Tester {
     		j++;
 		}
 		
+		// Reset to standard output
 	    System.out.flush();
 	    System.setOut(old);
 	    
+	    // Put the result into the arrays
 	    String[] split = os.toString().split("\\r?\\n");
 	    for (int i = 0; i < split.length; i++) {
 	    	if (i % 2 == 0) {
@@ -51,6 +59,7 @@ public class Tester {
 	    	}
 	    }
 	    
+	    // Print the analysis
 	    System.out.println("VISITS");
 	    System.out.println(" - mean: " + getMean(explores));
 	    System.out.println(" - median: " + getMedian(explores));

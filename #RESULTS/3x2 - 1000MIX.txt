@@ -1,0 +1,89 @@
+The following are the results of 100 random 3x2 puzzles for the different methods:
+Puzzle generation settings:
+Dimensions: 3x2
+Mix moves: 1000
+
+--- BFS ---
+VISITS
+ - mean: 174.21
+ - median: 174.0
+ - sd: 105.24868597754562
+MOVES
+ - mean: 13.53
+ - median: 14.0
+ - sd: 4.313826607549265
+TIMES
+ - mean: 0.64
+ - median: 1.0
+ - sd: 0.71442284397967
+-----------
+--- GBFS ---
+VISITS
+ - mean: 84.09
+ - median: 91.0
+ - sd: 52.57244430307572
+MOVES
+ - mean: 24.13
+ - median: 24.0
+ - sd: 12.386811534854317
+TIMES
+ - mean: 0.5
+ - median: 0.0
+ - sd: 0.6082762530298219
+-----------
+--- AS ---
+VISITS
+ - mean: 79.86
+ - median: 66.0
+ - sd: 61.25161548889956
+MOVES
+ - mean: 14.35
+ - median: 15.0
+ - sd: 4.236448984704051
+TIMES
+ - mean: 0.38
+ - median: 0.0
+ - sd: 0.5055689863905813
+-----------
+--- CUS2 ---
+VISITS
+ - mean: 68.42
+ - median: 67.0
+ - sd: 50.13684872426666
+MOVES
+ - mean: 15.35
+ - median: 16.0
+ - sd: 6.050413209029611
+TIMES
+ - mean: 0.47
+ - median: 0.0
+ - sd: 0.6396092557178953
+-----------
+--- CUS1 ---
+VISITS
+ - mean: 104.37
+ - median: 78.0
+ - sd: 85.53159123972847
+MOVES
+ - mean: 13.74
+ - median: 14.0
+ - sd: 3.791094828674165
+TIMES
+ - mean: 1.07
+ - median: 1.0
+ - sd: 1.1247666424641156
+-----------
+--- DFS ---
+VISITS
+ - mean: 156.64
+ - median: 159.0
+ - sd: 98.43592027303853
+MOVES
+ - mean: 144.59
+ - median: 151.0
+ - sd: 87.03287827022613
+TIMES
+ - mean: 0.61
+ - median: 1.0
+ - sd: 0.6617401302626283
+-----------

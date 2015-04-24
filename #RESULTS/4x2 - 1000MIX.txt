@@ -1,0 +1,89 @@
+The following are the results of 100 random 4x2 puzzles for the different methods:
+Puzzle generation settings:
+Dimensions: 4x2
+Mix moves: 1000
+
+--- BFS ---
+VISITS
+ - mean: 10633.72
+ - median: 11336.0
+ - sd: 5210.542465194963
+MOVES
+ - mean: 24.42
+ - median: 25.0
+ - sd: 3.93237841515793
+TIMES
+ - mean: 3.44
+ - median: 2.0
+ - sd: 4.271580503747998
+-----------
+--- GBFS ---
+VISITS
+ - mean: 291.87
+ - median: 270.0
+ - sd: 158.02187538439102
+MOVES
+ - mean: 57.26
+ - median: 58.0
+ - sd: 23.323644655156276
+TIMES
+ - mean: 0.78
+ - median: 1.0
+ - sd: 1.063766891757776
+-----------
+--- AS ---
+VISITS
+ - mean: 1425.9
+ - median: 1082.0
+ - sd: 1222.628156881723
+MOVES
+ - mean: 25.25
+ - median: 26.0
+ - sd: 4.439313009914935
+TIMES
+ - mean: 1.83
+ - median: 1.0
+ - sd: 5.702727417648506
+-----------
+--- CUS2 ---
+VISITS
+ - mean: 412.24
+ - median: 295.0
+ - sd: 320.97642031775484
+MOVES
+ - mean: 37.26
+ - median: 37.0
+ - sd: 11.758078074243258
+TIMES
+ - mean: 1.03
+ - median: 1.0
+ - sd: 2.459491817428958
+-----------
+--- CUS1 ---
+VISITS
+ - mean: 5736.1
+ - median: 5336.0
+ - sd: 4843.106615592929
+MOVES
+ - mean: 23.39
+ - median: 24.0
+ - sd: 4.447235096101846
+TIMES
+ - mean: 26.83
+ - median: 17.0
+ - sd: 29.929936518475944
+-----------
+--- DFS ---
+VISITS
+ - mean: 8137.96
+ - median: 8111.0
+ - sd: 4881.111225776359
+MOVES
+ - mean: 7591.73
+ - median: 7885.0
+ - sd: 4260.54794329321
+TIMES
+ - mean: 4.3
+ - median: 4.0
+ - sd: 3.485685011586675
+-----------

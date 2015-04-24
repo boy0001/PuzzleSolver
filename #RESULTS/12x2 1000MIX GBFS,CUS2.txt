@@ -1,0 +1,33 @@
+The following are the results of 100 random 12x2 puzzles for the different methods:
+Puzzle generation settings:
+Dimensions: 12x2
+Mix moves: 1000
+
+--- GBFS ---
+VISITS
+ - mean: 921903.5
+ - median: 26881.0
+ - sd: 2409065.8980820905
+MOVES
+ - mean: 510.56
+ - median: 417.0
+ - sd: 280.2877920994776
+TIMES
+ - mean: 1236.53
+ - median: 18.0
+ - sd: 3642.19796401843
+-----------
+--- CUS2 ---
+VISITS
+ - mean: 469083.13
+ - median: 39449.0
+ - sd: 1905213.9632024413
+MOVES
+ - mean: 209.38
+ - median: 205.0
+ - sd: 53.0118439596285
+TIMES
+ - mean: 735.95
+ - median: 26.0
+ - sd: 3656.2346215061198
+-----------

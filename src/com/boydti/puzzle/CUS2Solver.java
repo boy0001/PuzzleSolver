@@ -7,6 +7,11 @@ package com.boydti.puzzle;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+/**
+ * This solver uses simulated annealing initially then switches to A star when it gets close to the solutin
+ * @author Jesse Boyd
+ *
+ */
 public class CUS2Solver extends AbstractSolver {
 
 	public CUS2Solver(int width, int height, byte[] initial, byte[] goal) {
@@ -30,9 +35,14 @@ public class CUS2Solver extends AbstractSolver {
         }
     }
 	
+	/**
+	 * A much faster random class I made which isn't secure at all, but fit for this purpose
+	 */
 	public PseudoRandom random = new PseudoRandom();
-	public int base_manhattan;
 	
+	/**
+	 * The distance function
+	 */
 	public int customDistance(Node node) {
         if (positions == null) {
             positions = new byte[GOAL.length];
@@ -41,6 +51,7 @@ public class CUS2Solver extends AbstractSolver {
             }
         }
         if (node.distance == 0) {
+            // Normal manhattan distance
             for (int i = 1, j = 0; i < node.data.length; i++, j++) {
                 if (i != node.data[0]) {
                     byte ideal = positions[node.data[i]];
@@ -48,10 +59,14 @@ public class CUS2Solver extends AbstractSolver {
                     node.distance += abs((ideal / WIDTH) - (j / WIDTH));
                 }
             }
+            
+            // If MD is > 8, use simulated annealing
             if (node.distance > 8) {
+                // Decisions have a random element which decreases the closer it gets to the solution
             	node.distance = random.random(node.distance - 4) + node.distance * 8 + node.moves;
             }
             else {
+                // If it's really close, use A*
             	node.distance += node.moves;
             }
         }
@@ -63,7 +78,6 @@ public class CUS2Solver extends AbstractSolver {
 		Node goal = getState(GOAL);
 		Node state = getState(INITIAL);
 		queue.add(state);
-		base_manhattan = manhattanDistance(state);
 		while (true) {
 			state = queue.remove();
 			Integer moves = state.moves;

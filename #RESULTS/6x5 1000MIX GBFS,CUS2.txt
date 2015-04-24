@@ -1,0 +1,33 @@
+The following are the results of 100 random 6x5 puzzles for the different methods:
+Puzzle generation settings:
+Dimensions: 6x5
+Mix moves: 1000
+
+--- GBFS ---
+VISITS
+ - mean: 66174.94
+ - median: 38770.0
+ - sd: 96701.35587413654
+MOVES
+ - mean: 499.91
+ - median: 487.0
+ - sd: 106.08120427295307
+TIMES
+ - mean: 50.21
+ - median: 26.0
+ - sd: 87.79638887790317
+-----------
+--- CUS2 ---
+VISITS
+ - mean: 73290.34
+ - median: 55331.0
+ - sd: 65841.58533544283
+MOVES
+ - mean: 309.43
+ - median: 308.0
+ - sd: 43.18246287557022
+TIMES
+ - mean: 52.68
+ - median: 35.0
+ - sd: 53.85106869877328
+-----------

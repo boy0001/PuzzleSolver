@@ -1,0 +1,89 @@
+The following are the results of 100 random 5x2 puzzles for the different methods:
+Puzzle generation settings:
+Dimensions: 5x2
+Mix moves: 1000
+
+--- BFS ---
+VISITS
+ - mean: 752032.99
+ - median: 748084.0
+ - sd: 482258.972695843
+MOVES
+ - mean: 34.15
+ - median: 35.0
+ - sd: 5.750434766172032
+TIMES
+ - mean: 446.86
+ - median: 360.0
+ - sd: 357.65863669146876
+-----------
+--- GBFS ---
+VISITS
+ - mean: 778.8
+ - median: 692.0
+ - sd: 443.0904196662347
+MOVES
+ - mean: 101.82
+ - median: 98.0
+ - sd: 36.43799665184682
+TIMES
+ - mean: 1.11
+ - median: 1.0
+ - sd: 1.207435298473587
+-----------
+--- AS ---
+VISITS
+ - mean: 26579.96
+ - median: 16028.0
+ - sd: 29724.356627156794
+MOVES
+ - mean: 35.33
+ - median: 36.0
+ - sd: 5.751617163893994
+TIMES
+ - mean: 14.37
+ - median: 7.0
+ - sd: 18.457331876519962
+-----------
+--- CUS2 ---
+VISITS
+ - mean: 1603.9
+ - median: 1275.0
+ - sd: 1063.7672348780063
+MOVES
+ - mean: 73.88
+ - median: 75.0
+ - sd: 23.533499527269633
+TIMES
+ - mean: 1.26
+ - median: 1.0
+ - sd: 1.7585221067703414
+-----------
+--- CUS1 ---
+VISITS
+ - mean: 532168.03
+ - median: 410280.0
+ - sd: 490367.5538258105
+MOVES
+ - mean: 34.46
+ - median: 34.0
+ - sd: 5.67171931604518
+TIMES
+ - mean: 9612.52
+ - median: 3732.0
+ - sd: 14816.613611402572
+-----------
+--- DFS ---
+VISITS
+ - mean: 726419.86
+ - median: 647163.0
+ - sd: 477279.3799254483
+MOVES
+ - mean: 683528.24
+ - median: 642567.0
+ - sd: 414246.83464521775
+TIMES
+ - mean: 962.14
+ - median: 813.0
+ - sd: 812.6384438358797
+-----------

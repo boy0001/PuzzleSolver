@@ -192,7 +192,7 @@ public abstract class AbstractSolver {
 	}
 	
 	/**
-	 * Remove a node from history
+	 * Remove a node from the map (basic garbage collection)
 	 */
 	public abstract void removeHistory(Node node);
 	

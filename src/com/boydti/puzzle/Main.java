@@ -17,7 +17,7 @@ public class Main {
      * Value of 1 is 100% accurate for A* and CUS2
      * Higher values are faster but less accurate
      */
-    public static int PRECISION = 1;
+    public static int PRECISION = 2;
 	
 	public static void main(String[] args) {
 	    // The initial and goal states
@@ -59,7 +59,8 @@ public class Main {
             solver = args[1];
             
 		}
-		else {
+		else { // Some initial values
+		    
 //	        initial = new byte[] { 1, 2, 3, 5, 11, 6, 4, 13, 9, 8, 0, 12, 7, 10, 14 }; // 3x5 -> 14 moves
 	        
 	        initial = new byte[] { 6, 7, 4, 1, 5, 3, 8, 0, 2 }; // 3x3 -> 20 moves
@@ -69,7 +70,7 @@ public class Main {
 	        
 //	      initial = new byte[] {0,9,3,7,1,5,4,8,2,6}; // 5x2 -> 55 moves
 	        
-	        solver = "AS";
+	        solver = "BFS";
 	        width = 3;
 	        height = 3;
 	        

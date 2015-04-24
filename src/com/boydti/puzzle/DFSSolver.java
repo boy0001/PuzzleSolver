@@ -13,12 +13,14 @@ public class DFSSolver extends AbstractSolver {
 		super(width, height, initial, goal);
 	}
 
+	// Use ArrayDeque as no sorting is required
 	public ArrayDeque<Node> queue = new ArrayDeque<Node>();
 	
 	@Override
 	public void removeHistory(Node node) {
 	}
-	
+
+	// Hash of local queue so we don't need to check the entire queue each time
 	HashMap<Node, Node> local_history = new HashMap<>();
 	
 	@Override

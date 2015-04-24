@@ -14,6 +14,7 @@ public class ASSolver extends AbstractSolver {
 		super(width, height, initial, goal);
 	}
 	
+	// We use a priority queue as it's a damn good datastructure for sorted queues
 	public PriorityQueue<Node> queue = new PriorityQueue<Node>(1, new Comparator<Node>() {
         @Override
         public int compare(Node a, Node b) {
@@ -31,8 +32,9 @@ public class ASSolver extends AbstractSolver {
         }
     }
 	
-//	HashMap<Node, Integer> local_history = new HashMap<>();
-	
+	/**
+	 * A modification to the original Manhattan distance formula
+	 */
 	@Override
 	public int manhattanDistance(Node node) {
         if (positions == null) {
