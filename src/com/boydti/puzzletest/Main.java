@@ -25,7 +25,7 @@ public class Main {
     	{
     		int WIDTH = 2;
     		int HEIGHT = 15;
-    		String[] METHODS = {"CUS2"};
+    		String[] METHODS = {"BFS", "DFS", "AS", "GBFS", "CUS1", "CUS2"};
     		int num_tests = 100;
     		String classpath = "com.boydti.puzzle.Main";
     		boolean random = false;
