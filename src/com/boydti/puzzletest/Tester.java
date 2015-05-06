@@ -10,11 +10,7 @@ import java.util.List;
 
 public class Tester {
 
-	public Tester(String classpath, int WIDTH, int HEIGHT, String METHOD, int num_tests, boolean rand) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-	    // Generate some random files
-		Generator gen = new Generator();
-		List<File> files = gen.generate(WIDTH, HEIGHT, num_tests, rand);
-		
+	public Tester(String classpath, String METHOD, List<File> files) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		// Get the class used for testing
 		Class<?> clazz = Class.forName(classpath);
 		
