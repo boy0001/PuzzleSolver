@@ -75,10 +75,14 @@ public class Main {
 	        height = 3;
 	        
 	        if (goal == null) {
-	            goal = getGoal(initial);
+	            goal = SolverUtil.getGoal(initial);
 	        }
 	        
 	        filename = "null.txt";
+		}
+		if (!SolverUtil.isValidPuzzle(initial, goal)) {
+		    displayInvalid(filename, solver, null);
+		    return;
 		}
 		
 		// Creating a new instance of the specified AbstractSolver class
@@ -96,24 +100,20 @@ public class Main {
 		    imp.solve();
 		}
 		catch (Exception e) {
-			System.out.println(filename + " " + solver + " " + (imp.all_history.size() + imp.prunes));
-			System.out.println("No solution found");
+			displayInvalid(filename, solver, imp);
 		    return;
 		}
 		System.out.println(filename + " " + solver + " " + (imp.all_history.size() + imp.prunes));
 		imp.displayPath(imp.getState(goal));
 	}
 	
-	/**
-	 * Get the default goal if the goal is not set 
-	 */
-	public static byte[] getGoal(byte[] initial) {
-	    byte[] goal = initial.clone();
-	    Arrays.sort(goal);
-	    for (int i = 1; i < goal.length; i++) {                
-	        goal[i-1] = goal[i];
+	public static void displayInvalid(String filename, String solver, AbstractSolver imp) {
+	    if (imp == null) {
+	        System.out.println(filename + " " + solver + " " + 0);
 	    }
-	    goal[goal.length - 1] = 0;
-	    return goal;
+	    else {
+	        System.out.println(filename + " " + solver + " " + (imp.all_history.size() + imp.prunes));
+	    }
+        System.out.println("No solution found");
 	}
 }

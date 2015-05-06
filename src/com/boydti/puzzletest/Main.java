@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Main {
@@ -23,16 +24,18 @@ public class Main {
     	}
     	else // Testing your solver (This is compatible with any program using standard output)
     	{
-    		int WIDTH = 2;
-    		int HEIGHT = 15;
-    		String[] METHODS = {"BFS", "DFS", "AS", "GBFS", "CUS1", "CUS2"};
+    		int WIDTH = 3;
+    		int HEIGHT = 3;
+    		String[] METHODS = {"GBFS", "CUS2", "AS", "BFS", "CUS1", "DFS"};
     		int num_tests = 100;
     		String classpath = "com.boydti.puzzle.Main";
     		boolean random = false;
+    		Generator generator = new Generator();
+            List<File> files = generator.generate(WIDTH, HEIGHT, num_tests, random);
     		try {
     			for (String method : METHODS) {
     				System.out.println("--- " + method + " ---");
-    				new Tester(classpath, WIDTH, HEIGHT, method, num_tests, random);
+    				new Tester(classpath, method, files);
     				System.out.println("-----------");
     			}
     		}
