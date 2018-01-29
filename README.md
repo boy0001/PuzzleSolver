@@ -1,6 +1,8 @@
 # Overview
 This project features very efficient implementations of common algorithms for solving the N*M Puzzle (or 15-Puzzle, N-Puzzle etc). Written in Java, which is an awesome language.
 
+Generator: https://github.com/boy0001/PuzzleGen
+
 ## Algorithms:
  - Breadth First Search (BFS)
  - Depth First Search (DFS)
